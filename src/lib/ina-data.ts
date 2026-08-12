@@ -241,3 +241,91 @@ export const programas = [
     puntos: ["Sesiones 1 a 1", "Evaluación corporal", "Plan de suplementación"],
   },
 ];
+
+// ─── Client Dashboard Data ────────────────────────────────────────────────────
+
+export const resumenHoy = {
+  caloriasConsumidas: 1340,
+  caloriasMeta: 1800,
+  pasos: 9240,
+  pasosMeta: 12000,
+  racha: 5,
+};
+
+export type Comida = {
+  momento: string;
+  hora: string;
+  kcal: number;
+  p: number; // proteína g
+  c: number; // carbohidratos g
+  g: number; // grasas g
+  items: string[];
+};
+
+export const comidas: Comida[] = [
+  {
+    momento: "Desayuno",
+    hora: "07:10",
+    kcal: 380,
+    p: 32, c: 38, g: 10,
+    items: [
+      "4 claras de huevo + 1 huevo completo",
+      "80g avena con canela",
+      "½ plátano",
+      "Café negro sin azúcar",
+    ],
+  },
+  {
+    momento: "Snack",
+    hora: "10:30",
+    kcal: 180,
+    p: 18, c: 16, g: 5,
+    items: [
+      "1 manzana mediana",
+      "20g mantequilla de almendra natural",
+      "150ml agua con limón",
+    ],
+  },
+  {
+    momento: "Almuerzo",
+    hora: "13:00",
+    kcal: 520,
+    p: 45, c: 52, g: 12,
+    items: [
+      "180g pechuga de pollo a la plancha",
+      "150g arroz integral",
+      "1 taza brócoli al vapor",
+      "1 cda aceite de oliva extra virgen",
+    ],
+  },
+  {
+    momento: "Pre-entreno",
+    hora: "16:30",
+    kcal: 220,
+    p: 25, c: 22, g: 4,
+    items: [
+      "1 scoop proteína whey (chocolate)",
+      "150ml leche vegetal",
+      "1 plátano pequeño",
+    ],
+  },
+  {
+    momento: "Cena",
+    hora: "19:30",
+    kcal: 420,
+    p: 40, c: 30, g: 14,
+    items: [
+      "150g salmón al horno con limón",
+      "200g camote asado",
+      "Ensalada verde con aguacate",
+      "1 cda aceite de oliva",
+    ],
+  },
+];
+
+export const macros: Macro[] = [
+  { label: "Proteína", value: 160, goal: 180, unit: "g" },
+  { label: "Carbos",   value: 158, goal: 200, unit: "g" },
+  { label: "Grasas",   value: 45,  goal: 55,  unit: "g" },
+  { label: "Kcal",     value: 1340, goal: 1800, unit: "" },
+];
