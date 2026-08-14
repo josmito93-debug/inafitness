@@ -9,6 +9,7 @@ import {
 } from "@tanstack/react-router";
 import { useEffect, type ReactNode } from "react";
 
+import { PageLoader } from "../components/ina/PageLoader";
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 
@@ -87,7 +88,8 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { property: "og:title", content: "INA Fitness — Medición y Entrenamiento de Élite" },
       {
         property: "og:description",
-        content: "Métricas de salud y entrenamiento en tiempo real: ritmo cardíaco, glucosa, macros y rutinas activas.",
+        content:
+          "Métricas de salud y entrenamiento en tiempo real: ritmo cardíaco, glucosa, macros y rutinas activas.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -131,6 +133,7 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
+      <PageLoader />
       {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
       <Outlet />
     </QueryClientProvider>

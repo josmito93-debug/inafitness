@@ -1,311 +1,500 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
+import gsap from "gsap";
 import {
   ArrowRight,
   Activity,
   Apple,
   Dumbbell,
   Flame,
-  HeartPulse,
-  LineChart,
   Sparkles,
   Users,
   Menu,
   X,
   Droplets,
-  Moon,
-  Footprints,
   Heart,
+  Zap,
+  CheckCircle2,
+  TrendingUp,
+  Award,
+  BarChart3,
+  Clock,
+  ShieldCheck,
+  Target,
 } from "lucide-react";
 
 import { Logo } from "@/components/ina/Logo";
-import { Reveal } from "@/components/ina/Reveal";
+import { AmbientBackground } from "@/components/ina/GsapCanvas";
+import { AnimatedCounter } from "@/components/ina/AnimatedCounter";
+import { FloatingDock } from "@/components/ina/FloatingDock";
+import { BlueprintCard } from "@/components/ina/BlueprintCard";
 import { Button } from "@/components/ui/button";
-import { programas } from "@/lib/ina-data";
-import heroGym from "@/assets/hero-gym.jpg";
-import coach from "@/assets/ina-coach.png.asset.json";
+import { programas, comidas, macros } from "@/lib/ina-data";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "INA Fitness — Transforma tu cuerpo y tu mente" },
+      { title: "INA Fitness OS — Método Integral de Andre Ina" },
       {
         name: "description",
         content:
-          "Entrena con INA Fitness: medición de ritmo cardíaco, glucosa, macros, pasos, agua, sueño y temporizador de rutinas en modo Pitch Black y Purple.",
-      },
-      { property: "og:title", content: "INA Fitness — Medición y Entrenamiento de Élite" },
-      {
-        property: "og:description",
-        content: "Programas, dietas y métricas de entrenamiento en una plataforma de élite.",
+          "Plataforma de alta precisión para recomposición corporal, nutrición gourmet y entrenamiento de fuerza con biometría en vivo.",
       },
     ],
   }),
   component: Index,
 });
 
-const beneficios = [
+const pilares = [
   {
     icon: Apple,
-    titulo: "Nutrición a tu medida",
-    texto: "Planes de alimentación calculados según tus macros, tu ritmo y tus gustos reales.",
-  },
-  {
-    icon: Activity,
-    titulo: "Medimos absolutamente todo",
-    texto: "Ritmo cardíaco, glucosa, calorías, macros, grasa, sueño, pasos y agua.",
+    title: "Nutrición Gourmet",
+    metric: "100% Flexible",
+    desc: "Ajuste de macronutrientes sin dietas restrictivas.",
   },
   {
     icon: Dumbbell,
-    titulo: "Rutinas en video HD & Timer",
-    texto: "Bloques guiados paso a paso con temporizador en vivo, series y repeticiones.",
+    title: "Sobrecarga Progresiva",
+    metric: "4 Fases / Sem",
+    desc: "Entrenamientos guiados con temporizador y técnica HD.",
+  },
+  {
+    icon: Activity,
+    title: "HUD Biométrico",
+    metric: "En Vivo",
+    desc: "Monitoreo de frecuencia cardíaca, sueño y quema calórica.",
   },
   {
     icon: Users,
-    titulo: "Comunidad y retos",
-    texto: "Desafíos mensuales, racha semanal y acompañamiento para que nunca te detengas.",
+    title: "Acompañamiento 1 a 1",
+    metric: "Feedback Semanal",
+    desc: "Calibración constante de metas con la coach Andre Ina.",
   },
 ];
 
-const metricas = [
-  { valor: "+2.400", label: "Transformaciones" },
-  { valor: "98%", label: "Adherencia al plan" },
-  { valor: "24/7", label: "Acceso al dashboard" },
-  { valor: "12", label: "Métricas medidas" },
-];
-
 function Index() {
-  return (
-    <div className="relative min-h-screen overflow-x-hidden bg-[#07070a] text-foreground selection:bg-purple-600 selection:text-white">
-      {/* Background Radial Glows */}
-      <div
-        aria-hidden
-        className="pointer-events-none fixed inset-0 z-0 opacity-40"
-        style={{
-          background:
-            "radial-gradient(60% 45% at 15% 0%, oklch(0.62 0.26 295 / 22%), transparent 70%), radial-gradient(50% 40% at 95% 30%, oklch(0.74 0.24 145 / 15%), transparent 70%)",
-        }}
-      />
+  const heroTextRef = useRef<HTMLDivElement>(null);
+  const [activeProofGoal, setActiveProofGoal] = useState<"grasa" | "recomp" | "musculo">("recomp");
 
+  useEffect(() => {
+    if (heroTextRef.current) {
+      gsap.fromTo(
+        heroTextRef.current.children,
+        { y: 25, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 0.7,
+          stagger: 0.1,
+          ease: "power2.out",
+        },
+      );
+    }
+  }, []);
+
+  return (
+    <div className="relative min-h-screen overflow-x-hidden bg-[#121316] text-foreground selection:bg-purple-600 selection:text-white pb-36 font-sans">
+      {/* Precision Flat Background */}
+      <AmbientBackground />
+
+      {/* ILLUSTRATOR / CAD BLUEPRINT DRAFTING GUIDELINES */}
+      <div className="pointer-events-none fixed inset-0 z-0 flex justify-between max-w-[1600px] mx-auto px-6 sm:px-10 lg:px-16 opacity-30">
+        <div className="h-full w-[1px] bg-white/[0.06]" />
+        <div className="hidden md:block h-full w-[1px] bg-white/[0.04]" />
+        <div className="hidden lg:block h-full w-[1px] bg-white/[0.04]" />
+        <div className="h-full w-[1px] bg-white/[0.06]" />
+      </div>
+
+      {/* HEADER */}
       <Header />
 
-      <main className="relative z-10">
-        {/* HERO SECTION */}
-        <section className="relative flex min-h-[92vh] items-center overflow-hidden">
-          <img
-            src={heroGym}
-            alt="Gimnasio de lujo iluminado en tonos oscuros y morados"
-            width={1920}
-            height={1088}
-            className="absolute inset-0 h-full w-full scale-105 object-cover opacity-20"
-          />
-          <div className="absolute inset-0 bg-linear-to-r from-[#07070a] via-[#07070a]/90 to-[#07070a]/40" />
-          <div className="absolute inset-x-0 bottom-0 h-48 bg-linear-to-t from-[#07070a] to-transparent" />
+      <main className="relative z-10 pt-28 space-y-28 max-w-[1600px] mx-auto px-6 sm:px-10 lg:px-16">
+        {/* ==================== 1. HERO SECTION WITH MODULAR PROOF COCKPIT ==================== */}
+        <section className="relative pt-8 pb-12">
+          {/* Top Illustrator Coordinate Tag */}
+          <div className="flex items-center justify-between pb-6 border-b border-white/[0.06] text-[10px] font-mono text-muted-foreground uppercase tracking-widest">
+            <span className="flex items-center gap-2">
+              <span className="text-purple-400 font-bold">+</span> SISTEMA BIOMÉTRICO OFICIAL
+            </span>
+            <span className="hidden sm:inline-block">INA FITNESS OS // VER 3.4</span>
+          </div>
 
-          <div className="relative mx-auto w-full max-w-6xl px-6 py-28">
-            <div className="reveal max-w-2xl">
-              <span className="inline-flex items-center gap-2 rounded-full border border-purple-500/30 bg-purple-500/10 px-4 py-1.5 text-[11px] tracking-[0.28em] text-purple-300 uppercase">
-                <Sparkles className="h-3.5 w-3.5" /> Plataforma de Medición de Élite
-              </span>
-              <h1 className="mt-8 font-display text-5xl leading-[0.95] font-light tracking-tight uppercase md:text-7xl">
-                <span className="text-silver-gradient block">Empodérate</span>
-                <span className="shimmer-text block">y transforma</span>
-                <span className="block text-white">tu cuerpo</span>
-              </h1>
-              <p className="mt-8 max-w-lg text-base leading-relaxed text-purple-200/70 md:text-lg">
-                Entrenamiento, nutrición y métricas en vivo en un solo lugar. Controla tu ritmo cardíaco,
-                macros, pasos, agua, grasa corporal y rutinas con temporizador activo.
-              </p>
-              <div className="mt-10 flex flex-wrap items-center gap-4">
-                <Button asChild size="lg" className="rounded-xl bg-purple-600 font-medium text-white shadow-lg shadow-purple-600/40 hover:bg-purple-500">
-                  <Link to="/acceso">
-                    Entrar a mi Dashboard <ArrowRight className="ml-2 h-4 w-4" />
-                  </Link>
-                </Button>
-                <Button asChild size="lg" variant="outline" className="rounded-xl border-purple-500/30 bg-white/5 text-purple-200 hover:bg-purple-500/20 hover:text-white">
-                  <a href="#programas">Ver programas</a>
-                </Button>
+          <div className="grid gap-12 lg:grid-cols-12 lg:items-center pt-8">
+            {/* Left Column: Direct High-Status Value Prop */}
+            <div ref={heroTextRef} className="lg:col-span-6 space-y-6">
+              <div className="inline-flex items-center gap-2 rounded-md border border-purple-500/30 bg-purple-500/10 px-3 py-1 text-[10px] font-mono tracking-widest text-purple-300 uppercase">
+                <Sparkles className="h-3.5 w-3.5 text-purple-400" />
+                <span>Método Integral Andre Ina</span>
               </div>
 
-              <dl className="mt-16 grid max-w-xl grid-cols-2 gap-6 sm:grid-cols-4">
-                {metricas.map((m) => (
-                  <div key={m.label}>
-                    <dt className="font-display text-2xl font-light text-purple-300 md:text-3xl">
-                      {m.valor}
-                    </dt>
-                    <dd className="mt-1 text-[11px] tracking-[0.18em] text-muted-foreground uppercase">
-                      {m.label}
-                    </dd>
+              <h1 className="font-display text-4xl sm:text-6xl font-light tracking-tight text-white uppercase leading-[1.02]">
+                Ciencia, nutrición <br />
+                <span className="text-purple-400 font-normal">& fuerza real</span>
+              </h1>
+
+              <p className="text-sm leading-relaxed text-muted-foreground max-w-lg">
+                El sistema de entrenamiento y nutrición gourmet diseñado para transformar tu
+                composición corporal con datos biométricos en tiempo real y disciplina consciente.
+              </p>
+
+              {/* CTAs */}
+              <div className="flex flex-wrap items-center gap-3 pt-2">
+                <Link
+                  to="/acceso"
+                  className="group flex items-center gap-3 rounded-[6px] bg-purple-600 px-6 py-3 text-xs font-semibold text-white shadow-lg hover:bg-purple-500 transition-all"
+                >
+                  <span>Iniciar Mi Transformación</span>
+                  <div className="flex h-5 w-5 items-center justify-center rounded bg-black/20 group-hover:translate-x-0.5 transition-transform">
+                    <ArrowRight className="h-3 w-3" />
                   </div>
+                </Link>
+
+                <a
+                  href="#metodo"
+                  className="rounded-[6px] border border-white/10 bg-white/5 px-5 py-3 text-xs font-medium text-purple-200 hover:bg-white/10 hover:border-white/20 transition-colors"
+                >
+                  Explorar Método
+                </a>
+              </div>
+
+              {/* Live Metric Tickers */}
+              <div className="grid grid-cols-3 gap-4 pt-6 border-t border-white/[0.06]">
+                <div>
+                  <p className="font-display text-2xl font-light text-white">
+                    <AnimatedCounter value={2400} prefix="+" />
+                  </p>
+                  <p className="text-[9px] font-mono uppercase tracking-widest text-muted-foreground mt-0.5">
+                    Atletas Activas
+                  </p>
+                </div>
+                <div>
+                  <p className="font-display text-2xl font-light text-emerald-400">
+                    <AnimatedCounter value={98} suffix="%" />
+                  </p>
+                  <p className="text-[9px] font-mono uppercase tracking-widest text-muted-foreground mt-0.5">
+                    Adherencia
+                  </p>
+                </div>
+                <div>
+                  <p className="font-display text-2xl font-light text-white">
+                    <AnimatedCounter value={100} suffix="%" />
+                  </p>
+                  <p className="text-[9px] font-mono uppercase tracking-widest text-muted-foreground mt-0.5">
+                    Nutrición Real
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Right Column: SIDE-BY-SIDE MODULAR PROOF COCKPIT */}
+            <div className="lg:col-span-6 space-y-3">
+              {/* Cockpit Goal Switcher */}
+              <div className="flex items-center gap-1 rounded-[6px] border border-white/10 bg-white/[0.02] p-1">
+                {[
+                  { id: "grasa", label: "Pérdida de Grasa" },
+                  { id: "recomp", label: "Recomposición Física" },
+                  { id: "musculo", label: "Hipertrofia Glúteo" },
+                ].map((g) => (
+                  <button
+                    key={g.id}
+                    onClick={() => setActiveProofGoal(g.id as typeof activeProofGoal)}
+                    className={`flex-1 py-1.5 text-[10px] font-mono font-semibold rounded transition-colors ${
+                      activeProofGoal === g.id
+                        ? "bg-purple-600 text-white"
+                        : "text-muted-foreground hover:text-white"
+                    }`}
+                  >
+                    {g.label}
+                  </button>
                 ))}
-              </dl>
+              </div>
+
+              {/* 4 Modular Side-by-Side Live Proof Cards with Blueprint Hatching */}
+              <div className="grid gap-3 sm:grid-cols-2">
+                {/* 1. Nutrition & Deficit Card */}
+                <BlueprintCard tag="MACROS // DEFICIT">
+                  <div className="space-y-3">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-2.5">
+                        <div className="w-8 h-8 rounded-md bg-purple-500/10 border border-purple-400/20 flex items-center justify-center text-purple-400 shrink-0">
+                          <Apple className="h-4 w-4" />
+                        </div>
+                        <div>
+                          <span className="text-[9px] font-mono uppercase text-muted-foreground">
+                            Macronutrientes
+                          </span>
+                          <h4 className="text-xs font-semibold text-white">
+                            {activeProofGoal === "grasa"
+                              ? "1,500 kcal / día"
+                              : activeProofGoal === "musculo"
+                                ? "2,200 kcal / día"
+                                : "1,800 kcal / día"}
+                          </h4>
+                        </div>
+                      </div>
+                      <span className="text-[10px] font-mono text-emerald-400 font-bold">
+                        160g P
+                      </span>
+                    </div>
+
+                    <div className="space-y-1">
+                      <div className="flex justify-between text-[9px] font-mono text-muted-foreground">
+                        <span>Progreso de Adherencia</span>
+                        <span>92%</span>
+                      </div>
+                      <div className="h-2 w-full rounded-full bg-white/10 overflow-hidden">
+                        <div
+                          className="h-full rounded-full bar-glow-purple transition-all duration-700"
+                          style={{ width: "92%" }}
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </BlueprintCard>
+
+                {/* 2. Strength Overload Progress Card */}
+                <BlueprintCard tag="FORCE // LOAD" accentColor="cyan">
+                  <div className="space-y-3">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-2.5">
+                        <div className="w-8 h-8 rounded-md bg-blue-500/10 border border-blue-400/20 flex items-center justify-center text-blue-400 shrink-0">
+                          <Dumbbell className="h-4 w-4" />
+                        </div>
+                        <div>
+                          <span className="text-[9px] font-mono uppercase text-muted-foreground">
+                            Sobrecarga Glúteo
+                          </span>
+                          <h4 className="text-xs font-semibold text-white">Zancada Búlgara</h4>
+                        </div>
+                      </div>
+                      <span className="text-[10px] font-mono text-blue-300 font-bold">+5 kg</span>
+                    </div>
+
+                    <div className="space-y-1">
+                      <div className="flex justify-between text-[9px] font-mono text-muted-foreground">
+                        <span>Carga Mecánica Semanal</span>
+                        <span>85%</span>
+                      </div>
+                      <div className="h-2 w-full rounded-full bg-white/10 overflow-hidden">
+                        <div
+                          className="h-full rounded-full bar-glow-blue transition-all duration-700"
+                          style={{ width: "85%" }}
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </BlueprintCard>
+
+                {/* 3. Hydration & Vital Metrics */}
+                <BlueprintCard tag="HYD // VITAL" accentColor="cyan">
+                  <div className="space-y-3">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-2.5">
+                        <div className="w-8 h-8 rounded-md bg-cyan-500/10 border border-cyan-400/20 flex items-center justify-center text-cyan-400 shrink-0">
+                          <Droplets className="h-4 w-4" />
+                        </div>
+                        <div>
+                          <span className="text-[9px] font-mono uppercase text-muted-foreground">
+                            Hidratación
+                          </span>
+                          <h4 className="text-xs font-semibold text-white">2.5 L / 3.0 L</h4>
+                        </div>
+                      </div>
+                      <span className="text-[10px] font-mono text-cyan-300 font-bold">83%</span>
+                    </div>
+
+                    <div className="space-y-1">
+                      <div className="flex justify-between text-[9px] font-mono text-muted-foreground">
+                        <span>Metabolismo Celular</span>
+                        <span>83%</span>
+                      </div>
+                      <div className="h-2 w-full rounded-full bg-white/10 overflow-hidden">
+                        <div
+                          className="h-full rounded-full bar-glow-cyan transition-all duration-700"
+                          style={{ width: "83%" }}
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </BlueprintCard>
+
+                {/* 4. Weekly Consistency Matrix Card */}
+                <BlueprintCard tag="STREAK // LVL 3">
+                  <div className="space-y-3">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-2.5">
+                        <div className="w-8 h-8 rounded-md bg-orange-500/10 border border-orange-400/20 flex items-center justify-center text-orange-400 shrink-0">
+                          <Flame className="h-4 w-4" />
+                        </div>
+                        <div>
+                          <span className="text-[9px] font-mono uppercase text-muted-foreground">
+                            Racha de Hábito
+                          </span>
+                          <h4 className="text-xs font-semibold text-white">5 Días Consecutivos</h4>
+                        </div>
+                      </div>
+                      <span className="text-[10px] font-mono text-orange-400 font-bold">LVL 3</span>
+                    </div>
+
+                    <div className="flex items-center justify-between gap-1 pt-0.5">
+                      {["L", "M", "M", "J", "V", "S", "D"].map((d, i) => (
+                        <div
+                          key={i}
+                          className={`h-5 w-full rounded-[3px] flex items-center justify-center text-[9px] font-mono font-bold ${
+                            i < 5 ? "bg-purple-600 text-white" : "bg-white/5 text-muted-foreground"
+                          }`}
+                        >
+                          {i < 5 ? "✓" : d}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </BlueprintCard>
+              </div>
+
+              {/* Bottom Verification Strip */}
+              <div className="rounded-[8px] border border-white/10 bg-white/[0.02] px-4 py-2.5 flex items-center justify-between text-xs text-muted-foreground">
+                <span className="flex items-center gap-2">
+                  <span className="h-2 w-2 rounded-full bg-emerald-400" />
+                  Garantía de Método Basado en Biometría y Adherencia
+                </span>
+                <Link
+                  to="/acceso"
+                  className="text-purple-300 hover:text-white font-mono text-[10px]"
+                >
+                  Ver Demo →
+                </Link>
+              </div>
             </div>
           </div>
         </section>
 
-        {/* BENEFICIOS */}
-        <section id="beneficios" className="mx-auto max-w-6xl px-6 py-24">
-          <Reveal>
-            <SectionTitle
-              eyebrow="Por qué INA Fitness"
-              titulo="Un sistema integral medido en tiempo real"
-            />
-          </Reveal>
-          <div className="mt-14 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-            {beneficios.map((b, i) => (
-              <Reveal key={b.titulo} delay={i * 110}>
-                <article className="surface-card-purple hover-lift h-full p-7">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-xl border border-purple-500/40 bg-purple-500/20">
-                    <b.icon className="h-5 w-5 text-purple-300" />
+        {/* ==================== 2. PILARES DEL MÉTODO CON MICRO-CUADRITOS ICONOGRÁFICOS ==================== */}
+        <section id="metodo" className="space-y-8">
+          <div className="flex items-center justify-between border-b border-white/[0.06] pb-4">
+            <div>
+              <span className="text-[10px] font-mono tracking-widest text-purple-400 uppercase font-bold">
+                [02 // ARQUITECTURA DEL MÉTODO]
+              </span>
+              <h2 className="font-display text-2xl sm:text-3xl font-light text-white uppercase mt-0.5">
+                4 Componentes Fundamentales
+              </h2>
+            </div>
+            <span className="text-xs text-muted-foreground font-mono hidden sm:inline-block">
+              Precisión · Sin Dietas Aburridas
+            </span>
+          </div>
+
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {pilares.map((p, idx) => (
+              <BlueprintCard key={p.title} tag={`PIL // 0${idx + 1}`}>
+                <div className="space-y-4">
+                  <div className="flex items-center justify-between">
+                    {/* Micro-cuadrito iconográfico */}
+                    <div className="w-9 h-9 rounded-md bg-white/[0.04] border border-white/10 flex items-center justify-center text-purple-400 shrink-0">
+                      <p.icon className="h-4 w-4" />
+                    </div>
+                    <span className="rounded bg-white/5 border border-white/10 px-2 py-0.5 text-[9px] font-mono text-purple-300">
+                      {p.metric}
+                    </span>
                   </div>
-                  <h3 className="mt-6 text-lg font-medium text-white">{b.titulo}</h3>
-                  <p className="mt-3 text-sm leading-relaxed text-purple-200/70">{b.texto}</p>
-                </article>
-              </Reveal>
+
+                  <div>
+                    <h3 className="text-sm font-semibold text-white">{p.title}</h3>
+                    <p className="text-xs text-muted-foreground mt-1 leading-relaxed">{p.desc}</p>
+                  </div>
+                </div>
+              </BlueprintCard>
             ))}
           </div>
         </section>
 
-        {/* METRICS CAROUSEL PREVIEW (Bento Widgets Teaser) */}
-        <section className="mx-auto max-w-6xl px-6 py-24">
-          <Reveal>
-            <SectionTitle
-              eyebrow="Herramientas de Medición"
-              titulo="Todas las métricas de tu salud en una sola pantalla"
-            />
-          </Reveal>
-          <div className="mt-14 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-            <div className="surface-card-purple p-6">
-              <div className="flex justify-between text-xs text-purple-200">
-                <span>Nutrition Overview</span>
-                <span className="text-emerald-400 font-bold">70%</span>
-              </div>
-              <p className="mt-4 font-display text-4xl text-white">637 <span className="text-xs">kcal</span></p>
-              <p className="mt-2 text-xs text-purple-300">Proteína 65g · Carbos 45g · Grasas 18g</p>
+        {/* ==================== 3. PROGRAMAS & PLANES CON BORDES FINOS ==================== */}
+        <section id="programas" className="space-y-8">
+          <div className="flex items-center justify-between border-b border-white/[0.06] pb-4">
+            <div>
+              <span className="text-[10px] font-mono tracking-widest text-purple-400 uppercase font-bold">
+                [03 // PLANES & SUSCRIPCIÓN]
+              </span>
+              <h2 className="font-display text-2xl sm:text-3xl font-light text-white uppercase mt-0.5">
+                Planes de Transformación
+              </h2>
             </div>
-
-            <div className="surface-card-red p-6">
-              <div className="flex justify-between text-xs text-red-200">
-                <span>Heart Rate</span>
-                <Heart className="h-4 w-4 text-red-400 pulse-heart" />
-              </div>
-              <p className="mt-4 font-display text-4xl text-white">95 <span className="text-xs">bpm</span></p>
-              <p className="mt-2 text-xs text-red-300">Average: 110 bpm</p>
-            </div>
-
-            <div className="surface-card-green p-6">
-              <div className="flex justify-between text-xs text-emerald-200">
-                <span>Step Distance</span>
-                <Footprints className="h-4 w-4 text-emerald-400" />
-              </div>
-              <p className="mt-4 font-display text-4xl text-white">11.98 <span className="text-xs">Km</span></p>
-              <p className="mt-2 text-xs text-emerald-300">14,320 pasos hoy</p>
-            </div>
-
-            <div className="surface-card-amber p-6">
-              <div className="flex justify-between text-xs text-amber-200">
-                <span>Body Fat</span>
-                <span className="text-amber-300 font-bold">Normal</span>
-              </div>
-              <p className="mt-4 font-display text-4xl text-white">24.5 <span className="text-xs">%</span></p>
-              <p className="mt-2 text-xs text-amber-300">13.6 kg de grasa total</p>
-            </div>
+            <span className="text-xs text-muted-foreground font-mono hidden sm:inline-block">
+              Cupos Limitados por Cohorte
+            </span>
           </div>
-        </section>
 
-        {/* COACH SECTION */}
-        <section className="relative mx-auto max-w-6xl px-6 py-24">
-          <div className="grid items-center gap-14 lg:grid-cols-2">
-            <Reveal>
-              <div className="relative">
-                <div className="absolute -inset-4 rounded-[2rem] bg-linear-to-br from-purple-600/30 via-transparent to-purple-900/20 blur-2xl" />
-                <div className="relative overflow-hidden rounded-[2rem] border border-purple-500/30">
-                  <img
-                    src={coach.url}
-                    alt="Inna, entrenadora personal de INA Fitness"
-                    loading="lazy"
-                    width={1666}
-                    height={938}
-                    className="w-full object-cover transition-all duration-[1200ms] hover:scale-105"
-                  />
-                  <div className="pointer-events-none absolute inset-0 bg-linear-to-t from-[#07070a] via-[#07070a]/20 to-transparent" />
-                </div>
-              </div>
-            </Reveal>
-            <Reveal delay={140}>
-              <SectionTitle eyebrow="Tu entrenadora" titulo="Disciplina que se vuelve estilo de vida" />
-              <p className="mt-6 text-sm leading-relaxed text-purple-200/80 md:text-base">
-                Cada plan nace de una evaluación real: composición corporal, hábitos, horarios y
-                objetivos. Después ajustamos semana a semana con las métricas que tu dashboard registra.
-              </p>
-              <ul className="mt-8 space-y-4">
-                {[
-                  "Evaluación corporal, grasa % y cálculo de macros inicial",
-                  "Ajustes semanales según tu adherencia y racha de entrenamiento",
-                  "Soporte directo por chat y temporizador de técnica",
-                ].map((t) => (
-                  <li key={t} className="flex items-start gap-3 text-sm text-purple-200">
-                    <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-purple-400" />
-                    {t}
-                  </li>
-                ))}
-              </ul>
-            </Reveal>
-          </div>
-        </section>
+          <div className="grid gap-6 md:grid-cols-3">
+            {programas.map((p) => (
+              <BlueprintCard
+                key={p.nombre}
+                tag={p.destacado ? "PRO // RECOMENDADO" : "MEMBERSHIP"}
+                className={
+                  p.destacado
+                    ? "border-purple-500/50 shadow-[0_20px_45px_-10px_rgba(168,85,247,0.3)]"
+                    : ""
+                }
+              >
+                <div className="flex flex-col justify-between h-full space-y-6">
+                  <div className="space-y-4">
+                    <div className="flex items-center justify-between">
+                      <span className="text-[10px] font-mono uppercase text-purple-300 tracking-widest">
+                        {p.semanas}
+                      </span>
+                      {p.destacado && (
+                        <span className="rounded bg-purple-500/20 text-purple-300 border border-purple-400/40 text-[9px] font-mono px-2 py-0.5 font-bold uppercase">
+                          MÁS ELEGIDO
+                        </span>
+                      )}
+                    </div>
 
-        {/* PROGRAMAS */}
-        <section id="programas" className="mx-auto max-w-6xl px-6 py-24">
-          <Reveal>
-            <SectionTitle
-              eyebrow="Programas"
-              titulo="Elige tu camino hacia la mejor versión"
-            />
-          </Reveal>
-          <div className="mt-14 grid gap-6 lg:grid-cols-3">
-            {programas.map((p, i) => (
-              <Reveal key={p.nombre} delay={i * 130}>
-                <article
-                  className={`surface-card-purple hover-lift relative flex h-full flex-col p-8 ${
-                    p.destacado ? "border-purple-400" : ""
-                  }`}
-                >
-                  {p.destacado && (
-                    <span className="absolute -top-3 left-8 rounded-full bg-purple-500 px-3 py-1 text-[10px] font-semibold tracking-[0.2em] text-white uppercase shadow-md shadow-purple-500/50">
-                      Más elegido
-                    </span>
-                  )}
-                  <p className="text-[11px] tracking-[0.24em] text-purple-300 uppercase">
-                    {p.semanas}
-                  </p>
-                  <h3 className="mt-4 font-display text-2xl leading-tight font-light text-white uppercase">
-                    {p.nombre}
-                  </h3>
-                  <p className="mt-6 font-display text-4xl font-light text-purple-300">
-                    {p.precio}
-                  </p>
-                  <ul className="mt-8 flex-1 space-y-3 text-sm text-purple-200/80">
-                    {p.puntos.map((punto) => (
-                      <li key={punto} className="flex items-center gap-3">
-                        <Flame className="h-3.5 w-3.5 shrink-0 text-purple-400" /> {punto}
-                      </li>
-                    ))}
-                  </ul>
-                  <Button asChild className="mt-8 rounded-xl bg-purple-600 text-white hover:bg-purple-500">
-                    <Link to="/acceso">Comenzar ahora</Link>
+                    <h3 className="font-display text-xl text-white font-light uppercase">
+                      {p.nombre}
+                    </h3>
+                    <div className="flex items-baseline gap-1">
+                      <span className="font-display text-4xl font-light text-white">
+                        {p.precio}
+                      </span>
+                      <span className="text-xs text-muted-foreground">/ mes</span>
+                    </div>
+
+                    <ul className="space-y-2 border-t border-white/10 pt-4 text-xs text-muted-foreground">
+                      {p.puntos.map((punto, idx) => (
+                        <li key={idx} className="flex items-center gap-2">
+                          <div className="h-1.5 w-1.5 rounded-full bg-purple-400 shrink-0" />
+                          <span className="text-purple-200/90">{punto}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  <Button
+                    asChild
+                    className={`w-full rounded-[6px] py-3 text-xs font-semibold ${
+                      p.destacado
+                        ? "bg-purple-600 text-white hover:bg-purple-500"
+                        : "border border-white/10 bg-white/5 text-white hover:bg-white/10"
+                    }`}
+                  >
+                    <Link to="/acceso">Iniciar Programa</Link>
                   </Button>
-                </article>
-              </Reveal>
+                </div>
+              </BlueprintCard>
             ))}
           </div>
         </section>
       </main>
 
-      <footer className="relative z-10 border-t border-white/10 py-12">
-        <div className="mx-auto flex max-w-6xl flex-col items-center gap-6 px-6 md:flex-row md:justify-between">
+      {/* FLOATING CONTROL DOCK */}
+      <FloatingDock />
+
+      {/* FOOTER */}
+      <footer className="relative z-10 border-t border-white/[0.06] py-12 mt-28">
+        <div className="mx-auto flex max-w-[1600px] flex-col items-center justify-between gap-4 px-6 sm:px-10 lg:px-16 md:flex-row">
           <Logo />
-          <p className="text-xs tracking-[0.18em] text-purple-300/70 uppercase">
-            © 2026 INA Fitness — Todos los derechos reservados
+          <p className="text-[10px] font-mono tracking-widest text-muted-foreground uppercase">
+            © 2026 INA FITNESS OS — ANDRE INA. TODOS LOS DERECHOS RESERVADOS
           </p>
         </div>
       </footer>
@@ -313,64 +502,70 @@ function Index() {
   );
 }
 
-function SectionTitle({ eyebrow, titulo }: { eyebrow: string; titulo: string }) {
-  return (
-    <div className="max-w-xl">
-      <p className="text-[11px] tracking-[0.3em] text-purple-400 uppercase">{eyebrow}</p>
-      <h2 className="mt-4 font-display text-3xl leading-tight font-light text-white uppercase md:text-4xl">
-        {titulo}
-      </h2>
-      <div className="mt-6 h-0.5 w-24 bg-purple-500" />
-    </div>
-  );
-}
-
 function Header() {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => setScrolled(window.scrollY > 20);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50 border-b border-white/10 bg-[#07070a]/80 backdrop-blur-xl">
-      <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
+    <header className="fixed inset-x-0 top-0 z-50 px-6 sm:px-10 lg:px-16 py-3.5 transition-all">
+      <div
+        className={`mx-auto flex max-w-[1600px] items-center justify-between rounded-[8px] border px-6 py-2.5 transition-all duration-300 ${
+          scrolled
+            ? "border-white/10 bg-[#18191f]/90 shadow-lg backdrop-blur-2xl"
+            : "border-white/10 bg-[#18191f]/50 backdrop-blur-md"
+        }`}
+      >
         <Logo />
-        <nav className="hidden items-center gap-6 md:flex">
-          <a
-            href="#programas"
-            className="text-xs tracking-[0.2em] text-purple-200/80 uppercase transition-colors hover:text-purple-300"
-          >
-            Programas
+
+        <nav className="hidden items-center gap-8 md:flex text-xs font-medium tracking-widest uppercase font-mono">
+          <a href="#metodo" className="text-muted-foreground hover:text-white transition-colors">
+            El Método
           </a>
-          <a
-            href="#beneficios"
-            className="text-xs tracking-[0.2em] text-purple-200/80 uppercase transition-colors hover:text-purple-300"
-          >
-            Beneficios
+          <a href="#programas" className="text-muted-foreground hover:text-white transition-colors">
+            Planes
           </a>
-          <Button asChild size="sm" className="rounded-xl bg-purple-600 text-white shadow-md shadow-purple-600/30 hover:bg-purple-500">
-            <Link to="/acceso">Acceder al Dashboard</Link>
-          </Button>
+          <Link
+            to="/acceso"
+            className="rounded-[6px] bg-purple-600 px-4 py-1.5 text-xs text-white hover:bg-purple-500 transition-colors"
+          >
+            Dashboard
+          </Link>
         </nav>
 
-        <button
-          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          className="text-purple-300 md:hidden"
-        >
-          {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+        <button onClick={() => setMobileOpen(!mobileOpen)} className="text-white md:hidden">
+          {mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
         </button>
       </div>
 
-      {mobileMenuOpen && (
-        <div className="border-b border-white/10 bg-[#07070a] px-6 py-4 md:hidden">
-          <div className="flex flex-col gap-4 text-sm">
-            <a href="#programas" onClick={() => setMobileMenuOpen(false)} className="text-purple-200">
-              Programas
-            </a>
-            <a href="#beneficios" onClick={() => setMobileMenuOpen(false)} className="text-purple-200">
-              Beneficios
-            </a>
-            <Button asChild size="sm" className="w-full bg-purple-600 text-white">
-              <Link to="/acceso">Acceder al Dashboard</Link>
-            </Button>
-          </div>
+      {mobileOpen && (
+        <div className="mt-2 rounded-[8px] border border-white/10 bg-[#18191f] p-4 text-center space-y-3 md:hidden backdrop-blur-2xl">
+          <a
+            href="#metodo"
+            onClick={() => setMobileOpen(false)}
+            className="block text-xs text-purple-200"
+          >
+            El Método
+          </a>
+          <a
+            href="#programas"
+            onClick={() => setMobileOpen(false)}
+            className="block text-xs text-purple-200"
+          >
+            Planes
+          </a>
+          <Link
+            to="/acceso"
+            onClick={() => setMobileOpen(false)}
+            className="block rounded-[6px] bg-purple-600 py-2.5 text-xs font-semibold text-white"
+          >
+            Acceder al Dashboard
+          </Link>
         </div>
       )}
     </header>
