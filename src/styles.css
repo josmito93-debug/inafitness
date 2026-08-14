@@ -2,11 +2,29 @@
 @source "../src";
 @import "tw-animate-css";
 
+@font-face {
+  font-family: "Croser";
+  src: url("/fonts/Croser.otf") format("opentype");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Brancok";
+  src: url("/fonts/Brancok.otf") format("opentype");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
 @custom-variant dark (&:is(.dark *));
 
 @theme {
-  --font-display: "Outfit", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Outfit", "Sora", ui-sans-serif, system-ui, sans-serif;
   --font-sans: "Sora", ui-sans-serif, system-ui, sans-serif;
+  --font-croser: "Croser", sans-serif;
+  --font-brancok: "Brancok", sans-serif;
   --color-purple: var(--purple-electric);
   --color-purple-soft: var(--purple-soft);
   --color-gold: var(--purple-electric);
