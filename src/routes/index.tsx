@@ -40,6 +40,17 @@ export const Route = createFileRoute("/")({
         content:
           "Plataforma de alta precisión para recomposición corporal, nutrición gourmet y entrenamiento de fuerza con biometría en vivo.",
       },
+      { property: "og:title", content: "INA Fitness OS — Método Integral de Andre Ina" },
+      {
+        property: "og:description",
+        content:
+          "Transforma tu cuerpo, tu mente y tu relación con la comida con la Web App Oficial de Andre Ina.",
+      },
+      { property: "og:image", content: "/og-image.png" },
+      { property: "og:image:width", content: "1200" },
+      { property: "og:image:height", content: "630" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:image", content: "/og-image.png" },
     ],
   }),
   component: Index,

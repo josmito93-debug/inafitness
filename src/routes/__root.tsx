@@ -78,28 +78,39 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "INA Fitness — Medición y Entrenamiento de Élite" },
+      { title: "INA Fitness OS — Método Integral de Andre Ina" },
       {
         name: "description",
         content:
-          "Plataforma INA Fitness: mide tu ritmo cardíaco, glucosa, macros, pasos, agua, sueño y rutinas activas en un dashboard Pitch Black & Purple.",
+          "Plataforma oficial de Andre Ina: nutrición gourmet flexible, sobrecarga progresiva de fuerza y biometría en vivo.",
       },
       { name: "author", content: "INA Fitness" },
-      { property: "og:title", content: "INA Fitness — Medición y Entrenamiento de Élite" },
+      { property: "og:title", content: "INA Fitness OS — Método Integral de Andre Ina" },
       {
         property: "og:description",
         content:
-          "Métricas de salud y entrenamiento en tiempo real: ritmo cardíaco, glucosa, macros y rutinas activas.",
+          "Centro de control biométrico: sobrecarga progresiva, planes de alimentación gourmet y analítica en vivo.",
       },
       { property: "og:type", content: "website" },
+      { property: "og:image", content: "/og-image.png" },
+      { property: "og:image:width", content: "1200" },
+      { property: "og:image:height", content: "630" },
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "INA Fitness OS — Método Integral de Andre Ina" },
+      {
+        name: "twitter:description",
+        content: "Nutrición gourmet flexible, fuerza guiada y biometría en vivo.",
+      },
+      { name: "twitter:image", content: "/og-image.png" },
     ],
     links: [
       {
         rel: "stylesheet",
         href: appCss,
       },
+      { rel: "icon", href: "/favicon.svg", type: "image/svg+xml" },
       { rel: "icon", href: "/favicon.png", type: "image/png" },
+      { rel: "apple-touch-icon", href: "/favicon.png" },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       {
